@@ -1,0 +1,13 @@
+DROP ALL OBJECTS
+CREATE SCHEMA uni;
+create table uni.groups (id_group varchar(50) PRIMARY KEY, name_group varchar(50)  NOT NULL, specialty varchar(50));
+create table uni.persons (id_person varchar(50) PRIMARY KEY, first_name varchar(50)  NOT NULL, last_name varchar(50));
+create table uni.contact_infos (id_cont_info varchar(50) PRIMARY KEY,  id_person varchar(50) REFERENCES uni.persons (id_person) ON DELETE CASCADE, index int, country varchar(50), city varchar(50), street varchar(50), house varchar(50), apartment int, phone1 varchar(50), phone2 varchar(50), email varchar(50))
+create table uni.students (id_person varchar(50) PRIMARY KEY REFERENCES uni.persons (id_person) ON DELETE CASCADE, study_status varchar(50), start_of_study date, citizenship varchar(50), grants numeric, id_group varchar(50) REFERENCES uni.groups (id_group))
+create table uni.teachers ( id_person varchar(50) PRIMARY KEY REFERENCES uni.persons (id_person) ON DELETE CASCADE, degree varchar(50),department varchar(50), permanent boolean,  salary numeric)
+create table uni.subjects (id_subject varchar(50) PRIMARY KEY, name_subject varchar(50))
+create table uni.rooms (id_room varchar(50) PRIMARY KEY, name_room varchar(50))
+create table uni.time_slots (id_time_slot varchar(50) PRIMARY KEY, serial_number int, start_time time, finish_time time)
+create table uni.schedule_items (id varchar(50) PRIMARY KEY, id_group varchar(50) REFERENCES uni.groups (id_group), id_subject varchar(50) REFERENCES uni.subjects (id_subject), id_room varchar(50) REFERENCES uni.rooms (id_room) , id_time_slot varchar(50) REFERENCES uni.time_slots (id_time_slot) , id_person varchar(50) REFERENCES uni.teachers (id_person) ON DELETE CASCADE, day_of_week varchar(50))
+create table uni.periods (id_period varchar(50) PRIMARY KEY, start_date date, finish_date date)
+create table uni.schedule (id_period varchar(50) REFERENCES uni.periods (id_period) ON DELETE CASCADE, id_schedule_items varchar(50) REFERENCES uni.schedule_items (id) ON DELETE CASCADE)

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>edit student</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<body>
+<h3>Welcome, Edit The Student Details</h3>
+	<form action="#" th:method="POST" th:action="@{/students/edit}" th:object="${student}">
+		<br/>
+		<table>
+			<tr>
+				<td><label for="firstName">First Name: </label></td>
+				<td><input type="text" th:field="*{firstName}" id="firstName"/></td>
+				<td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"/>
+	    	</tr>                  
+	     	<tr>
+				<td><label for="lastName">Last Name: </label></td>
+				<td><input type="text" th:field="*{lastName}" id="lastName"/></td>
+				<td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"/>
+	     	</tr>
+	     	<tr>
+				<td><label for="Group">Group: </label></td>
+				<td><select id="nameGroup" th:field="*{group.name}">     
+			    		<option
+							th:each="group : ${groups}"
+							th:value="${group.name}" th:text="${group.name}">
+						</option>
+			   	</select></td>
+	     	</tr>
+			<tr>
+				<td><label	for="studyStatus">Study status: </label></td>
+			  	<td><select id="studyStatus" th:field="*{studyStatus}">   
+			    		<option
+							th:each="studyStatus : ${T(ua.com.foxminded.model.enums.StudyStatus).values()}"
+							th:value="${studyStatus}" th:text="${studyStatus}">
+						</option>
+			   	</select></td>
+			</tr>
+			<tr>
+				<td><label for="startOfStudy">Start of study: </label></td>
+				<td><input	type="date" th:field="*{startOfStudy}" id="startOfStudy"/></td>
+				<td th:if="${#fields.hasErrors('startOfStudy')}" th:errors="*{startOfStudy}"/>
+			</tr>
+			<tr>
+				<td><label for="citizenship">Citizenship: </label></td>
+				<td><input type="text"	th:field="*{citizenship}" id="citizenship" /></td>
+				<td th:if="${#fields.hasErrors('citizenship')}" th:errors="*{citizenship}"/>
+			</tr>
+			<tr>
+				<td><label for="grant">Grant: </label></td>
+				<td><input type="number" th:field="*{grant}" id="grant" /></td>
+				<td th:if="${#fields.hasErrors('grant')}" th:errors="*{grant}"/>
+			 </tr>
+			 <tr>
+				<td><label for="index">Index: </label></td>
+				<td><input type="number" th:field="*{contactInfo.index}" id="index" /></td>
+				<td th:if="${#fields.hasErrors('contactInfo.index')}" th:errors="*{contactInfo.index}"/>
+			 </tr>
+			 <tr>
+				<td><label for="country">Country: </label></td>
+				<td><input type="text" th:field="*{contactInfo.country}" id="country" /></td>
+				<td th:if="${#fields.hasErrors('contactInfo.country')}" th:errors="*{contactInfo.country}"/>
+			 </tr>
+			 <tr>
+				<td><label for="city">City: </label></td>
+				<td><input type="text" th:field="*{contactInfo.city}" id="city" /></td>
+				<td th:if="${#fields.hasErrors('contactInfo.city')}" th:errors="*{contactInfo.city}"/>
+			 </tr>
+			 <tr>
+				<td><label for="street">Street: </label></td>
+				<td><input type="text" th:field="*{contactInfo.street}" id="street" /></td>
+				<td th:if="${#fields.hasErrors('contactInfo.street')}" th:errors="*{contactInfo.street}"/>
+			 </tr>
+			 <tr>
+				<td><label for="house">House: </label></td>
+				<td><input type="text" th:field="*{contactInfo.house}" id="house" /></td>
+				<td th:if="${#fields.hasErrors('contactInfo.house')}" th:errors="*{contactInfo.house}"/>
+			 </tr>
+			 <tr>
+				<td><label for="apartment">Apartment: </label></td>
+				<td><input type="text" th:field="*{contactInfo.apartment}" id="apartment" /></td>
+				<td th:if="${#fields.hasErrors('contactInfo.apartment')}" th:errors="*{contactInfo.apartment}"/>
+			 </tr>
+			 <tr>
+				<td><label for="phone1">Phone 1: </label></td>
+				<td><input type="text" th:field="*{contactInfo.phone1}" id="phone1" /></td>
+				<td th:if="${#fields.hasErrors('contactInfo.phone1')}" th:errors="*{contactInfo.phone1}"/>
+			 </tr>
+			 <tr>
+				<td><label for="phone2">Phone 2: </label></td>
+				<td><input type="text" th:field="*{contactInfo.phone2}" id="phone2" /></td>
+				<td th:if="${#fields.hasErrors('contactInfo.phone2')}" th:errors="*{contactInfo.phone2}"/>
+			 </tr>
+			 <tr>
+				<td><label for="email">Email: </label></td>
+				<td><input type="text" th:field="*{contactInfo.email}" id="email" /></td>
+				<td th:if="${#fields.hasErrors('contactInfo.email')}" th:errors="*{contactInfo.email}"/>
+			 </tr>
+		</table> 
+		<br/>
+		 <input type="hidden" th:field="*{idPerson}"	id="idPerson" />
+		 <input type="hidden" th:field="*{contactInfo.id}"	id="id" />
+		 <input type="submit" value="Edit Student" />
+	</form>
+
+</body>
+</html>

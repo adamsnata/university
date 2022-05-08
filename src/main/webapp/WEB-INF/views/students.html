@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Students</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<!-- <link rel="stylesheet" th:href="@{/css/main.css}" /> -->
+</head>
+<body>
+
+	<div class="container">
+
+
+
+		<div class="row">
+			<table class="table table-responsive table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Group</th>
+						<th>Study status</th>
+						<th>Start of study</th>
+						<th>Citizenship</th>
+						<th>Grant</th>
+						<th>Edit</th>
+						<th>Delete</th>
+						<th>Schedule month</th>
+						<th>Schedule day</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="student : ${students}">
+						<td th:text="${student.firstName}"></td>
+						<td th:text="${student.lastName}"></td>
+						<td th:text="${student.group.name}"></td>
+						<td th:text="${student.studyStatus}"></td>
+						<td th:text="${student.StartOfStudy}"></td>
+						<td th:text="${student.citizenship}"></td>
+						<td th:text="${student.grant}"></td>
+						<td><a
+							th:href="@{/students/{uuid}(uuid=${student.idPerson})}">Edit</a>
+						<td><a
+							th:href="@{/students/delete/{uuid}(uuid=${student.idPerson})}">Delete</a>
+						<td><form
+							th:action="@{/schedule/student/{uuid}(uuid=${student.idPerson}, month=${month})}">
+						<button type="submit">Schedule</button>
+							    <select id="month" name="month">
+								<option th:each="month: ${months}"
+ 									th:value="${month}" th:text="${month}"></option>
+								</select>	 
+						</form>		
+						</td>
+						<td><form
+							th:action="@{/schedule/student/{uuid}(uuid=${student.idPerson}, day=${day})}">
+						<button type="submit">Schedule</button> 
+						 <input	type="date" id="day" name="day"/> 	
+						 </form>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<form id="hotDealForm" th:action="@{students/new}">
+		<div class="col-md-12 bg-light float-lg-left">
+			<br /> <input type="submit" value="Add new student " />
+		</div>
+	</form>
+</body>
+</html>

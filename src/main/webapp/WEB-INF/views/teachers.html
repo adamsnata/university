@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Teachers</title>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+ integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+ <!-- <link rel="stylesheet" th:href="@{/css/main.css}" /> -->
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<table class="table table-responsive table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Degree</th>
+						<th>Department</th>
+						<th>Permanent</th>
+						<th>Salary</th>
+						<th>Edit</th>
+						<th>Delete</th>
+						<th>Schedule month</th>
+						<th>Schedule day</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="teacher : ${teachers}">
+				    	<td th:text="${teacher.firstName}"></td>
+						<td th:text="${teacher.lastName}"></td>
+						<td th:text="${teacher.degree}"></td>
+						<td th:text="${teacher.department}"></td>
+						<td th:text="${teacher.isPermanent()}? 'Yes' : 'No'"></td>
+						<td th:text="${teacher.salary}"></td>	
+						<td><a th:href="@{/teachers/{uuid}(uuid=${teacher.idPerson})}">Edit</a>
+						<td><a th:href="@{/teachers/delete/{uuid}(uuid=${teacher.idPerson})}">Delete</a>
+						<td><form
+							th:action="@{/schedule/teacher/{uuid}(uuid=${teacher.idPerson}, month=${month})}">
+						<button type="submit">Schedule</button>
+							    <select id="month" name="month">
+								<option th:each="month: ${months}"
+ 									th:value="${month}" th:text="${month}"></option>
+								</select>	 
+						</form>		
+						</td>
+						<td><form
+							th:action="@{/schedule/teacher/{uuid}(uuid=${teacher.idPerson}, day=${day})}">
+						<button type="submit">Schedule</button> 
+						 <input	type="date" id="day" name="day"/> 	
+						 </form>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<form id="hotDealForm" th:action="@{/teachers/new}">
+		<div class="col-md-12 bg-light float-lg-left">
+			<br /> <input type="submit" value="Add new teacher" />
+		</div>
+	</form>
+</body>
+</html>
